@@ -34,6 +34,7 @@ Fields:
 - `id` (Integer, auto-generated)
 - `name` (String)
 - `email` (String)
+- `department` (String)
 
 ---
 

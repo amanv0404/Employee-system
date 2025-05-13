@@ -1,7 +1,5 @@
 
 package com.example.myFirstProject.controllers;
-
-
 import com.example.myFirstProject.exception.ErrorResponse;
 import com.example.myFirstProject.models.Employee;
 import com.example.myFirstProject.services.EmployeeService;
@@ -25,24 +23,25 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllEmployee(@RequestParam(required = false) Long id){
+    public ResponseEntity<List<Employee>> getAllEmployee(){
         // if id is given then we will fetch by id
-        if(id != null){
-            return service.getEmployeeById(id);
-        }else{
-            // if id is not given then we will fetch all employee
-            return  service.getAllEmployees();
-        }
+//        if(id != null){
+//            return service.getEmployeeById(id);
+//        }else{
+//            // if id is not given then we will fetch all employee
+//            return  service.getAllEmployees();
+//        }
+        return  service.getAllEmployees();
 
     }
 
     @GetMapping("/{empId}")
-    public ResponseEntity<?> getEmployeeById(@PathVariable int empId){
+    public  ResponseEntity<?> getEmployeeById(@PathVariable int empId){
         return service.getEmployeeById(empId);
     }
 
     @PutMapping("/{empId}")
-    public ResponseEntity<?> updateEmployee(@PathVariable int empId,@RequestBody Employee employee){
+    public  ResponseEntity<?> updateEmployee(@PathVariable int empId,@RequestBody Employee employee){
         return service.updateEmployeeById(empId,employee);
     }
 
@@ -51,4 +50,8 @@ public class EmployeeController {
         return service.deleteEmployeeById(empId);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Employee>> findEmployeeByDepartment(@RequestParam String dept){
+        return service.findEmployeeByDepartment(dept);
+    }
 }

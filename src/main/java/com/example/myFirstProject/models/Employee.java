@@ -20,14 +20,19 @@ public class Employee {
     @Column(name="email")
     private String email;
 
+    @Column(name="department")
+    private String department;
+
     //  required by jpa
     public Employee() {
     }
 
-    public Employee(int id, String name, String email) {
+    public Employee(int id, String name, String email,String department) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.department = department;
+
     }
 
 }

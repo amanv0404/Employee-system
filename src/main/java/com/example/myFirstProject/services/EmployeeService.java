@@ -33,22 +33,22 @@ public class EmployeeService {
 
 
     // get all employees
-    public ResponseEntity<?> getAllEmployees(){
+    public ResponseEntity<List<Employee>> getAllEmployees(){
         List<Employee> allEmployee = employeeRepository.findAll();
         return  ResponseEntity.status(HttpStatus.OK).body(allEmployee);
 
     }
 
     // get employee by id
-    public ResponseEntity<?> getEmployeeById(long empId){
-
+    public ResponseEntity<?> getEmployeeById(long empId) {
         Optional<Employee> employee = employeeRepository.findById(empId);
-        if(employee.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Employee does not exist with this id"));
+        if (employee.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("Employee does not exist with this id"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(employee);
-
+        return ResponseEntity.ok(employee.get());
     }
+
 
     // update employee by id
     public ResponseEntity<?> updateEmployeeById(long empId,Employee updatedEmployee){
@@ -77,6 +77,13 @@ public class EmployeeService {
         }
         employeeRepository.deleteById(empId);
         return ResponseEntity.noContent().build();
+    }
+
+
+    // find employee by department
+    public ResponseEntity<List<Employee>> findEmployeeByDepartment(String dept){
+        List<Employee> employees = employeeRepository.findByDepartment(dept);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
 
